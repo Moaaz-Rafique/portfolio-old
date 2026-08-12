@@ -7,24 +7,22 @@ for(var i=0;i<14;i++){
 
     gallery.innerHTML += `<div class="pics" id="${i}" onclick='imagePressed(this.id)'><img src="thumbnails/${i+1}.png" alt="galleryimage"></div>`
 }
-function imagePressed(id){
+function imagePressed(id) {
+    id = (Number(id) + 14) % 14;
 
-    if(id<0){
-        id=13
-    }
-    dsp.innerHTML=`<img src=${imgArr[id]} alt="galleryimage"  height="100%"><br>
-                    <button class="leftbtn" onclick="imagePressed(${(id-1)%14})" >&#8592;</button>
-                   <button  class="rightbtn" onclick="imagePressed(${(id+1)%14})">&#8594;</button>`
-    select.style.display="block"
+    dsp.innerHTML = `
+        <img src="${imgArr[id]}" alt="galleryimage">
+
+        <br>
+
+        <button class="leftbtn" onclick="imagePressed(${id - 1})">
+            &#8592;
+        </button>
+
+        <button class="rightbtn" onclick="imagePressed(${id + 1})">
+            &#8594;
+        </button>
+    `;
+
+    select.style.display = "block";
 }
-function imageReleased(){
-    if (event.target === event.currentTarget) 
-        select.style.display='none'
-}
-document.onkeydown = function(evt) {
-    
-    evt = evt || window.event;
-    if (evt.key == "Escape") {
-        select.style.display='none'
-    }
-};
